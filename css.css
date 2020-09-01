@@ -1,0 +1,234 @@
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body{
+  margin:0;
+  font-family:'Noto Sans JP',sans-serif ;
+  line-height: 1.6;
+
+
+}
+
+img{
+max-width: 100%;
+display:block;  
+}
+
+h1,
+h2,
+h3,
+p{
+  margin:0;
+}
+
+.container{
+  width:85%;
+  margin: 0 auto;
+  max-width: 65em;
+}
+
+
+.split {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1em;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.split > * /*direct childs of split class*/{
+  -ms-flex-preferred-size: 30%;
+      flex-basis: 30%;/*after 15em browser all elements are  sam sideway aligned ,we can also do the same with media query*/
+  min-width: 15em;
+}
+
+
+.spacing > * + * /*this means direct child having its previous sibling exist before them of class spacing have these properties*/ {
+  margin-top: var(--spacer, 2rem);
+}
+
+
+.btn{
+  display: inline-block;
+  text-decoration: none;
+  padding: .5em 1.25em;
+  background:var(--clr-accent, blue);
+  font-weight: 700;
+  color:var(--clr-text,white);
+font-size: 1.125rem;  
+  text-transform:uppercase ;
+  border-radius: .25em;
+  transition:transform 250ms ease-in-out,
+  opacity 250ms linear;
+}
+
+.btn:hover,
+.btn:focus{
+  transform: scale(1.1);
+  opacity:.8;
+}
+
+.primary-title{
+  font-size: 4rem;
+  font-size: clamp(3rem,calc(5vw + 1rem), 4.5rem);/*adjust font-size according to size of window*/
+  line-height: 1;
+  text-transform: uppercase;
+
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(2.5rem, calc(5vw + 1rem), 4rem);
+  line-height: 1;
+  color: #17353d;
+  margin-bottom: 5rem;
+}
+
+.hero{
+  text-align:center;
+padding: 15rem 0;
+background:#222;
+color:#fff;
+
+}  
+
+/*general syntax for @supports=@supports(poroperty:value) */
+@supports (background-blend-mode: multiply) /*nice looking background but runs on specific browsers only if that browser don't support blend mode than simple dark background appears*/{
+      .hero {
+        background: url(../shoe-3.png),radial-gradient(rgb(107, 105, 105), #111);
+        background-blend-mode: multiply;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+    }
+
+    .featured {
+      background: #eee;
+    }
+    
+    .featured__item {
+      display: block;
+      position: relative;
+      -webkit-transform: scale(0.85);/*to reduce items size*/
+              transform: scale(0.85);
+      -webkit-transition: -webkit-transform 250ms ease-in-out;
+      transition: -webkit-transform 250ms ease-in-out;/*for transition*/
+      transition: transform 250ms ease-in-out;
+      transition: transform 250ms ease-in-out, -webkit-transform 250ms ease-in-out;
+      text-decoration: none;
+      color: #333;
+      text-align: center;
+      line-height: 1.2;
+    }
+    
+    .featured__item:hover, .featured__item:focus {
+      -webkit-transform: scale(1);/*grows size ofitems when hover over*/
+              transform: scale(1);
+    }
+    
+    .featured__item:hover .featured__details, .featured__item:focus .featured__details /*when we on a particular shoe it show its details  */{
+      opacity: 1;
+      text-shadow: 0 0 2em white;
+    }
+    
+    .featured__item::after/*for adding color circles behind items*/ {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      padding: 75% 75% 0 0;
+      border-radius: 50%;/*to make it a circle*/
+      background: #2193b0;
+      z-index: -1;
+
+
+    }
+
+    .featured__details {
+      opacity: 0;/*make all details hidden*/
+      -webkit-transition: opacity 250ms linear;
+       transition: opacity 250ms linear;/*when we on a particular shoe it show its details  */
+    }
+    
+    .featured__details span {
+      display: block;
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+      
+
+
+
+    .product {
+      background: radial-gradient(var(--clr-inner, limegreen), var(--clr-outer, purple));
+      padding: 3em;
+      border-radius: 1em;
+      margin-bottom: 5em;
+      text-align: center;
+    }
+
+    .product__title {
+      font-size: clamp(3rem, calc(5vw + 1rem), 5.5rem);
+      text-transform: uppercase;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 0 0.2em rgba(0, 0, 0, 0.2);
+    }
+    
+    .product__image {
+      margin: -5em 0 0 0;
+    }
+    
+    @media (min-width: 45em) {
+      .product {
+        text-align: left;
+        margin-bottom: 9em;
+      }
+      .product__title {
+        margin: 0;
+      }
+      .product__image {
+        float: right;
+        width: 65%;
+        shape-outside: url(../shoe-1.png);/*shape outside property is used to adjust position and styling of shoes in product clas*/
+        shape-margin: 1em;
+        margin: 0 -5em 0 0;
+      }
+      .product.shoe-left .product__image {
+        float: left;
+        shape-outside: url(../shoe-2.png);
+        margin: 0 0 0 -5em;
+        shape-margin: 2em;
+      }
+    }
+    
+    .hero {
+      --clr-accent: #faa700;
+    }
+    
+    .shoe-red {
+      --clr-inner: #faa700;
+      --clr-outer: #e48d00;
+      --clr-accent: #a1173c;
+    }
+    
+    .shoe-white {
+      --clr-inner: #fce4b3;
+      --clr-outer: #eac886;
+      --clr-accent: #2f4858;
+    }
+    
+    .shoe-blue {
+      --clr-inner: #6dd5ed;
+      --clr-outer: #2193b0;
+      --clr-accent: #008951;
+    }
